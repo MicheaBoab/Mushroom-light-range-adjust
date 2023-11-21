@@ -2,7 +2,7 @@
 name = "Mushroom Light range adjustment"
 description = "Change the range of the mushroom light"
 author = "MicheaBoab"
-version = "1.0"
+version = "2.0"
 
 -- This lets other players know if your mod is out of date, update it to match the current version in the game
 
