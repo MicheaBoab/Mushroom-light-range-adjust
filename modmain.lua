@@ -1,5 +1,5 @@
 local range = GLOBAL.tonumber(GetModConfigData("mushroom_light_range_config"));
-
+local switch = GetModConfigData("auto_on_off");
 
 local light_str =
 {
@@ -54,42 +54,44 @@ end
 
 
 local function PhaseChanged(inst)
+	if switch then 
 	-- 白天 -> 关灯
-	if GLOBAL.TheWorld.state.phase == "day" then
-		inst.Light:Enable(false)
-		
-		inst.AnimState:ClearBloomEffectHandle()
-        inst.AnimState:SetMultColour(.7, .7, .7, 1)
-		
-        if POPULATING then
-            inst.AnimState:PlayAnimation("idle")
-        elseif was_on then
-            inst.AnimState:PlayAnimation("turn_off")
-            inst.AnimState:PushAnimation("idle", false)
-            --inst.SoundEmitter:PlaySound(sound.toggle)
-        end
+		if GLOBAL.TheWorld.state.phase == "day" then
+			inst.Light:Enable(false)
+			
+			inst.AnimState:ClearBloomEffectHandle()
+			inst.AnimState:SetMultColour(.7, .7, .7, 1)
+			
+			if POPULATING then
+				inst.AnimState:PlayAnimation("idle")
+			elseif was_on then
+				inst.AnimState:PlayAnimation("turn_off")
+				inst.AnimState:PushAnimation("idle", false)
+				--inst.SoundEmitter:PlaySound(sound.toggle)
+			end
 
-		--GLOBAL.TheNet:SystemMessage("关灯", false)
-	end
-	
-	-- 晚上 -> 开灯
-	if GLOBAL.TheWorld.state.phase == "night" then
-		inst.Light:Enable(true)
-		inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
+			--GLOBAL.TheNet:SystemMessage("关灯", false)
+		end
+		
+		-- 晚上 -> 开灯
+		if GLOBAL.TheWorld.state.phase == "night" then
+			inst.Light:Enable(true)
+			inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
 
-		if POPULATING then
-            inst.AnimState:PlayAnimation("idle_on")
-        elseif not was_on or inst.onlywhite then
-            inst.AnimState:PlayAnimation("turn_on")
-            inst.AnimState:PushAnimation("idle_on", false)
-            --inst.SoundEmitter:PlaySound(sound.toggle)
-        else
-            inst.AnimState:PlayAnimation("colour_change")
-            inst.AnimState:PushAnimation("idle_on", false)
-            --inst.SoundEmitter:PlaySound(sound.toggle)
-            --QueueSound(inst, 13 * FRAMES, sound.colour)
-        end
-		--GLOBAL.TheNet:SystemMessage("开灯", false)
+			if POPULATING then
+				inst.AnimState:PlayAnimation("idle_on")
+			elseif not was_on or inst.onlywhite then
+				inst.AnimState:PlayAnimation("turn_on")
+				inst.AnimState:PushAnimation("idle_on", false)
+				--inst.SoundEmitter:PlaySound(sound.toggle)
+			else
+				inst.AnimState:PlayAnimation("colour_change")
+				inst.AnimState:PushAnimation("idle_on", false)
+				--inst.SoundEmitter:PlaySound(sound.toggle)
+				--QueueSound(inst, 13 * FRAMES, sound.colour)
+			end
+			--GLOBAL.TheNet:SystemMessage("开灯", false)
+		end
 	end
 end
 

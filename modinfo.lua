@@ -2,7 +2,7 @@
 name = "Mushroom Light range adjustment"
 description = "Change the range of the mushroom light"
 author = "MicheaBoab"
-version = "2.0"
+version = "3.0"
 
 -- This lets other players know if your mod is out of date, update it to match the current version in the game
 
@@ -38,10 +38,21 @@ configuration_options =
 		hover = "Mushroom Light range config",
 		options =	{
 			{description = "X1.0", data = 1.0, hover = "Default"},
-			{description = "X1.5", data = 1.5, hover = "X1.5"},
 			{description = "X2.0", data = 2.0, hover = "X2.0"},
-			{description = "X2.5", data = 2.5, hover = "X2.5"},
+			{description = "X3.0", data = 3.0, hover = "X3.0"},
+			{description = "X4.0", data = 4.0, hover = "X4.0"},
+			{description = "X5.0", data = 5.0, hover = "X5.0"},
 		},
 		default = 1.0,
+	},
+	{
+		name = "auto_on_off",
+		label = "自动开关",
+		hover = "Mushroom Light auto switch config",
+		options =	{
+			{description = "关 (Off)", data = 0, hover = "Default"},
+			{description = "开 (On)", data = 1, hover = "On"},
+		},
+		default = 0,
 	},
 }
